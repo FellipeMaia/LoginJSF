@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -27,7 +28,7 @@ import javax.faces.context.FacesContext;
  */
 
 @ManagedBean(name = "beanAutenticacao")
-@ViewScoped
+@SessionScoped
 public class AutenticacaoBean{
     
     private Boolean novo = true;
@@ -151,14 +152,27 @@ public class AutenticacaoBean{
         this.usuario = usuario;
         this.novo = false;
     }
-
-    public boolean temPermissoes(String nome){		
-        for(Permissao permissao : usuarioLogado.getPermissoes()){
-            if(nome.equals(permissao.getNome())){
-                return true;
-            }
-        }
+    
+    public boolean testefalse(){
         return false;
+    }
+
+    public boolean temPermissoes(String nome){
+        if(usuarioLogado != null){
+            for(Permissao permissao : usuarioLogado.getPermissoes()){
+                if(nome.equals(permissao.getNome())){
+                    return true;
+                }
+            }
+            return false;
+        }else{
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AutenticacaoBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return false;
+        }
     }
     
     public void pesquisaPermissao(){

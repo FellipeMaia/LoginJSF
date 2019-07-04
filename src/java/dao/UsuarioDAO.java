@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class UsuarioDAO {
     
-    private static Usuario usuario = new Usuario(1, "Fellipe", "fmaia", "123", Permissao.getListPesmissoes(new String[]{"index.xhtml"}));
+    private static Usuario usuario = new Usuario(1, "Fellipe", "fmaia", "123", Permissao.getListPesmissoes(new String[]{"index.xhtml","blank.xhtml"}));
     
     public static boolean insert(Usuario usuarioNovo) {
         throw new UnsupportedOperationException("Função não desenvolvida"); //To change body of generated methods, choose Tools | Templates.
